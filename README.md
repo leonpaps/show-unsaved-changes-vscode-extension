@@ -52,6 +52,16 @@ code --install-extension show-unsaved-changes-0.0.1.vsix
 
 - Initial release with core diff functionality.
 
+## Download
+
+**CI Build Artifacts**  
+Pre-built VSIX packages are automatically generated on each push via GitHub Actions. Download the latest artifact from the **Artifacts** section of the **Build VSIX** workflow:  
+https://github.com/leonpaps/show-unsaved-changes-vscode-extension/actions/workflows/build_vsix.yml  
+
+**Official Releases**  
+Stable versions are published on GitHub Releases and include the VSIX asset:  
+https://github.com/leonpaps/show-unsaved-changes-vscode-extension/releases
+
 ## License
 
 MIT
