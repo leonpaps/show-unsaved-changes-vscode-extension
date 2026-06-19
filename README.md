@@ -62,6 +62,16 @@ https://github.com/leonpaps/show-unsaved-changes-vscode-extension/actions/workfl
 Stable versions are published on GitHub Releases and include the VSIX asset:  
 https://github.com/leonpaps/show-unsaved-changes-vscode-extension/releases
 
+## Releasing
+
+To publish a new version of this extension, run:
+
+```bash
+npm run release <new-version>
+```
+
+This updates `package.json` and prints the next steps to commit the change, tag the release (`git tag v<new-version>`), and push to GitHub (`git push origin main --tags`). Once the tag is pushed, the GitHub Actions workflow will automatically create a Release and upload the VSIX asset.
+
 ## License
 
 MIT
