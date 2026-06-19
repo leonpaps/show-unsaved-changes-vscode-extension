@@ -54,6 +54,9 @@ function activate(context) {
                 `unsaved-diff-saved:${doc.uri.path}?t=${Date.now()}`
             );
 
+            // defer diff open until after key events settle to avoid accidental newlines
+            await new Promise(resolve => setTimeout(resolve, 100));
+
             await vscode.commands.executeCommand(
                 'vscode.diff',
                 savedUri,
@@ -61,7 +64,7 @@ function activate(context) {
                 `Unsaved Changes: ${vscode.workspace.asRelativePath(doc.uri)}`,
                 {
                     preview: false,
-                    preserveFocus: true
+                    preserveFocus: false
                 }
             );
         } catch (e) {
