@@ -2,7 +2,7 @@
   "name": "show-unsaved-changes",
   "displayName": "Show Unsaved Changes",
   "description": "Show a diff of unsaved changes in the current editor",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "publisher": "leonpaps",
   "repository": {
     "type": "git",
@@ -30,7 +30,8 @@
   },
   "scripts": {
     "vscode:prepublish": "echo \"No compile needed\"",
-    "package": "vsce package"
+    "package": "vsce package",
+    "release": "bash release.sh"
   },
   "devDependencies": {}
 }
