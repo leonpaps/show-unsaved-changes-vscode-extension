@@ -1,0 +1,32 @@
+{
+  "name": "show-unsaved-changes",
+  "displayName": "Show Unsaved Changes",
+  "description": "Show a diff of unsaved changes in the current editor",
+  "version": "0.0.4",
+  "publisher": "leonpaps",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:showUnsavedChanges"
+  ],
+  "main": "./extension.js",
+  "icon": "unsaved-changes-logo.png",
+  "license": "MIT",
+  "contributes": {
+    "commands": [
+      {
+        "command": "showUnsavedChanges",
+        "title": "Show Unsaved Changes"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "echo \"No compile needed\"",
+    "package": "vsce package"
+  },
+  "devDependencies": {}
+}
