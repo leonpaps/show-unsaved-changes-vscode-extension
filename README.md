@@ -4,7 +4,7 @@
   <img src="unsaved-changes-logo.jpg" alt="Show Unsaved Changes Logo" width="150" />
 </p>
 
-A lightweight, zero-dependency extension for VS Code and VSCodium that lets you instantly compare your unsaved buffer against the current file state on disk.
+A lightweight, zero-dependency extension for VS Code, VSCodium or Derivitives like Cursor that lets you instantly compare your unsaved buffer against the current file state on disk.
 
 Whether you accidentally typed something, want to audit your changes before hitting save, or need a quick sanity check, this extension generates an immediate side-by-side diff view with a single click.
 
@@ -15,7 +15,12 @@ Whether you accidentally typed something, want to audit your changes before hitt
 * **Zero Dependencies:** Built entirely using the native VS Code Extension API.
 * **Cross-Platform Compatibility:** Fully tested and supported on both **VS Code** and **VSCodium**.
 
----
+### Usage:
+You have 2 options:
+ - <kbd>ctrl/cmd</kbd> + <kbd>shift</kbd> + <kbd>p<kbd> `show unsaved changes`
+ - Right click on a code tab and click `show unsaved changes`
+
+I tried to add it to the confirm close popup modal, but we aren't allowd to edit that with standard extensions.
 
 ## Installation
 
@@ -23,10 +28,15 @@ Whether you accidentally typed something, want to audit your changes before hitt
 Every change committed to this repository automatically triggers a security-isolated build via GitHub Actions to generate a verified production `.vsix` file. 
 
 1. Download the latest `.vsix` package from the [GitHub Releases](https://github.com/leonpaps/show-unsaved-changes-vscode-extension/releases/latest) page.
-2. Open VS Code or VSCodium.
+2. Open VS Code, VSCodium or Cursor
 3. Open the Extensions view (`Ctrl+Shift+X` or `Cmd+Shift+X`).
-4. Click the `...` (More Actions) menu in the top-right corner of the Extensions pane.
+4. Click the `...` (More Actions) menu in the top-right corner of the Extensions pane. 
+ 
+   - NOTE: If that is not there, <kbd>ctrl/cmd</kbd> + <kbd>shift</kbd> + <kbd>p<kbd> 
+   - Type `vsix` and select `Extension: Install from VSIX`
+
 5. Select **Install from VSIX...** and select the downloaded file.
+
 
 ### Method 2: Build it yourself
 
