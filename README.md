@@ -1,77 +1,48 @@
-# Show Unsaved Changes
+# Show Unsaved Changes 
 
-A VS Code/VSCodium extension to display a diff between unsaved in-editor content and the on-disk file.
+<p align="center">
+  <img src="unsaved-changes-logo.jpg" alt="Show Unsaved Changes Logo" width="150" />
+</p>
+
+A lightweight, zero-dependency extension for VS Code and VSCodium that lets you instantly compare your unsaved buffer against the current file state on disk.
+
+Whether you accidentally typed something, want to audit your changes before hitting save, or need a quick sanity check, this extension generates an immediate side-by-side diff view with a single click.
 
 ## Features
 
-- Quickly compare unsaved edits with the saved file.
-- Opens a side-by-side diff in a new tab.
-- Invoked via **Ctrl+Shift+P** → _Show Unsaved Changes_.
+* **Instant Diff View:** Safely view unsaved additions, deletions, or modifications side-by-side with your last saved file state.
+* **Right-Click Integration:** Access directly from your editor tab context menu for a seamless workflow.
+* **Zero Dependencies:** Built entirely using the native VS Code Extension API.
+* **Cross-Platform Compatibility:** Fully tested and supported on both **VS Code** and **VSCodium**.
 
-## Requirements
-
-- VS Code or VSCodium.
-- Node.js.
-- _vsce_ CLI (for packaging).
+---
 
 ## Installation
 
-```bash
-# Clone the repository
-git clone https://github.com/your-name/show-unsaved-changes.git
-cd show-unsaved-changes
+### Method 1: Pre-built VSIX (Recommended)
+Every change committed to this repository automatically triggers a security-isolated build via GitHub Actions to generate a verified production `.vsix` file. 
 
-# Install dependencies (if any)
-npm install
+1. Download the latest `.vsix` package from the [GitHub Releases](https://github.com/leonpaps/show-unsaved-changes-vscode-extension/releases/latest) page.
+2. Open VS Code or VSCodium.
+3. Open the Extensions view (`Ctrl+Shift+X` or `Cmd+Shift+X`).
+4. Click the `...` (More Actions) menu in the top-right corner of the Extensions pane.
+5. Select **Install from VSIX...** and select the downloaded file.
 
-# Package the extension into a .vsix
-vsce package
+### Method 2: Build it yourself
 
-# Install the generated .vsix
-code --install-extension show-unsaved-changes-0.0.1.vsix
-```
+1. Pull the repo
+2. Read the code
+3. Build the vsix file locally with this command: `vcse package`
 
-## Usage
+---
 
-1. Open a file and make edits without saving.
-2. Press **Ctrl+Shift+P**, type **Show Unsaved Changes**, and press Enter.
-3. A diff view opens next to the current tab showing your unsaved changes.
+## Security & Supply Chain Safety
 
-## Extension Commands
+Blindly installing extensions from marketplaces introduces significant security risks. Many popular extensions carry massive dependency trees (`node_modules`) that open the door to malicious code injection, data exfiltration, and downstream supply chain compromises.
 
-- **Show Unsaved Changes**: Display the diff of unsaved edits.
+This extension is built with a **strict zero-dependency philosophy** to ensure total transparency. Every line of execution logic is fully audit-ready right here in the source.
 
-## Known Limitations
+### Vetting & Locking Updates
+To maintain an uncompromised development environment, it is highly recommended to turn off automatic extension updates for tools you have manually vetted. This prevents a compromised upstream marketplace account from pushing a malicious update to your local editor.
 
-- Untitled or never-saved files will show an error.
-- Only supports file URIs (`scheme === 'file'`).
-
-## Release Notes
-
-### 0.0.1
-
-- Initial release with core diff functionality.
-
-## Download
-
-**CI Build Artifacts**  
-Pre-built VSIX packages are automatically generated on each push via GitHub Actions. Download the latest artifact from the **Artifacts** section of the **Build VSIX** workflow:  
-https://github.com/leonpaps/show-unsaved-changes-vscode-extension/actions/workflows/build_vsix.yml  
-
-**Official Releases**  
-Stable versions are published on GitHub Releases and include the VSIX asset:  
-https://github.com/leonpaps/show-unsaved-changes-vscode-extension/releases
-
-## Releasing
-
-To publish a new version of this extension, run:
-
-```bash
-npm run release <new-version>
-```
-
-This updates `package.json` and prints the next steps to commit the change, tag the release (`git tag v<new-version>`), and push to GitHub (`git push origin main --tags`). Once the tag is pushed, the GitHub Actions workflow will automatically create a Release and upload the VSIX asset.
-
-## License
-
-MIT
+There is technically one dependancy, the vcse package tool, but it is built by the vscode team so if you don't trust them well then we have reached an impass.
