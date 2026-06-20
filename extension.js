@@ -24,7 +24,7 @@ function activate(context) {
         provider
     );
 
-    const disposable = vscode.commands.registerCommand('showUnsavedChanges', async () => {
+    const disposable = vscode.commands.registerCommand('show-unsaved-changes.showUnsavedChanges', async () => {
         if (isOpeningDiff) {
             return;
         }
@@ -75,6 +75,7 @@ function activate(context) {
     });
 
     context.subscriptions.push(disposable);
+
 }
 
 function deactivate() {}
