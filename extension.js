@@ -9,6 +9,8 @@ class SavedContentProvider {
 
     setContent(filePath, content) {
         this.contentByPath.set(filePath, content);
+        // Good practice: fire the event to alert the editor if content updates
+        this._onDidChange.fire(vscode.Uri.parse(`unsaved-diff-saved:${filePath}`));
     }
 
     provideTextDocumentContent(uri) {
@@ -19,24 +21,36 @@ class SavedContentProvider {
 function activate(context) {
     const provider = new SavedContentProvider();
     let isOpeningDiff = false;
+    
     context.subscriptions.push(
-        vscode.workspace.registerTextDocumentContentProvider('unsaved-diff-saved', provider),
-        provider
+        vscode.workspace.registerTextDocumentContentProvider('unsaved-diff-saved', provider)
     );
 
-    const disposable = vscode.commands.registerCommand('show-unsaved-changes.showUnsavedChanges', async () => {
-        if (isOpeningDiff) {
-            return;
+    // Accept the URI argument that VS Codium passes from context menus
+    const disposable = vscode.commands.registerCommand('show-unsaved-changes.showUnsavedChanges', async (incomingUri) => {
+        if (isOpeningDiff) return;
+
+        // 1. Determine which document to target
+        let doc;
+        if (incomingUri) {
+            // Invoked via right-click tab menu
+            doc = vscode.workspace.textDocuments.find(d => d.uri.toString() === incomingUri.toString());
+        } else {
+            // Invoked via Command Palette or keyboard shortcut
+            const editor = vscode.window.activeTextEditor;
+            doc = editor ? editor.document : null;
         }
 
-        const editor = vscode.window.activeTextEditor;
-        if (!editor) {
-            return vscode.window.showErrorMessage('No active editor');
+        if (!doc) {
+            return vscode.window.showErrorMessage('No active or valid document found');
         }
 
-        const doc = editor.document;
         if (doc.isUntitled) {
             return vscode.window.showErrorMessage('File has not been saved yet');
+        }
+
+        if (!doc.isDirty) {
+            return vscode.window.showInformationMessage('No unsaved changes to show.');
         }
 
         if (doc.uri.scheme !== 'file') {
@@ -54,7 +68,7 @@ function activate(context) {
                 `unsaved-diff-saved:${doc.uri.path}?t=${Date.now()}`
             );
 
-            // defer diff open until after key events settle to avoid accidental newlines
+            // Defer diff open to avoid accidental shortcut-induced newlines
             await new Promise(resolve => setTimeout(resolve, 100));
 
             await vscode.commands.executeCommand(
@@ -68,14 +82,13 @@ function activate(context) {
                 }
             );
         } catch (e) {
-            return vscode.window.showErrorMessage(`Error showing diff: ${e.message}`);
+            vscode.window.showErrorMessage(`Error showing diff: ${e.message}`);
         } finally {
             isOpeningDiff = false;
         }
     });
 
     context.subscriptions.push(disposable);
-
 }
 
 function deactivate() {}

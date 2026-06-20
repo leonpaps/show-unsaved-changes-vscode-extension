@@ -2,7 +2,7 @@
   "name": "show-unsaved-changes",
   "displayName": "Show Unsaved Changes",
   "description": "Show a diff of unsaved changes in the current editor",
-  "version": "0.0.18",
+  "version": "0.1.0",
   "publisher": "leonpaps",
   "repository": {
     "type": "git",
@@ -15,11 +15,10 @@
     "Other"
   ],
   "activationEvents": [
-    "*",
     "onCommand:show-unsaved-changes.showUnsavedChanges"
   ],
   "main": "./extension.js",
-  "icon": "unsaved-changes-logo.png",
+  "icon": "unsaved-changes-logo.jpg",
   "license": "MIT",
   "contributes": {
     "commands": [
@@ -29,10 +28,9 @@
       }
     ],
     "menus": {
-      "tab/context": [
+      "editor/title/context": [
         {
           "command": "show-unsaved-changes.showUnsavedChanges",
-          "when": "resourceIsDirty",
           "group": "1_modification"
         }
       ]

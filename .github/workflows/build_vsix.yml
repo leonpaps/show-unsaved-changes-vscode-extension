@@ -10,6 +10,7 @@ on:
   release:
     types:
       - published
+  workflow_dispatch: # Allows you to manually trigger this from the GitHub Actions UI
 
 jobs:
   build:
@@ -26,24 +27,37 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Get version from package.json
+        id: get_version
+        run: |
+          # Reads the version field out of package.json and sets it as a step output
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Install VSCE
         run: npm install -g vsce
 
       - name: Package VSIX
         run: npm run package
 
-      - name: Upload VSIX artifact
+      - name: Upload VSIX artifact (Ephemeral Link)
         if: github.event_name == 'push'
         uses: actions/upload-artifact@v4
         with:
           name: vsix
           path: '*.vsix'
+          retention-days: 7 # Keeps commit artifacts clean; default is 90 if omitted
 
-      - name: Upload VSIX to Release
-        if: github.event_name == 'release'
-        uses: actions/upload-release-asset@v1
+      - name: Create & Upload VSIX to Release
+        # Runs if manually triggered OR if triggered via the GitHub Releases UI
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: '*.vsix'
-          asset_name: show-unsaved-changes-${{ github.event.release.tag_name }}.vsix
-          asset_content_type: application/octet-stream
+          # Uses the version we parsed from package.json to name the tag and title
+          tag_name: v${{ steps.get_version.outputs.version }}
+          name: Release v${{ steps.get_version.outputs.version }}
+          draft: false
+          prerelease: false
+          files: '*.vsix'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
