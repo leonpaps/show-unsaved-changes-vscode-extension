@@ -32,7 +32,7 @@ Every change committed to this repository automatically triggers a security-isol
 3. Open the Extensions view (`Ctrl+Shift+X` or `Cmd+Shift+X`).
 4. Click the `...` (More Actions) menu in the top-right corner of the Extensions pane. 
  
-   - NOTE: If that is not there, <kbd>ctrl/cmd</kbd> + <kbd>shift</kbd> + <kbd>p<kbd> 
+   - NOTE: If that is not there, <kbd>ctrl/cmd</kbd> + <kbd>shift</kbd> + <kbd>p</kbd> 
    - Type `vsix` and select `Extension: Install from VSIX`
 
 5. Select **Install from VSIX...** and select the downloaded file.
