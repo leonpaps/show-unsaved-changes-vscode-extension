@@ -17,7 +17,7 @@ Whether you accidentally typed something, want to audit your changes before hitt
 
 ### Usage:
 You have 2 options:
- - <kbd>ctrl/cmd</kbd> + <kbd>shift</kbd> + <kbd>p<kbd> `show unsaved changes`
+ - <kbd>ctrl/cmd</kbd> + <kbd>shift</kbd> + <kbd>p</kbd> `show unsaved changes`
  - Right click on a code tab and click `show unsaved changes`
 
 I tried to add it to the confirm close popup modal, but we aren't allowd to edit that with standard extensions.
